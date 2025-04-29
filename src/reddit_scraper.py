@@ -18,7 +18,7 @@ KEYWORDS = [
 ]
 
 
-def scrape_reddit(auth, subreddits=SUBREDDITS, keywords=KEYWORDS, limit=100):
+def scrape_reddit(auth, subreddits=SUBREDDITS, keywords=KEYWORDS, limit=1000):
     reddit = praw.Reddit(**auth)
     results = []
     for subreddit in subreddits:

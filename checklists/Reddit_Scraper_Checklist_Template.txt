@@ -1,0 +1,36 @@
+Reddit Scraper Checklist
+
+1. Preparation
+- Define target subreddits
+- Define keywords/topics
+- Decide on data fields
+- Set up Reddit API credentials
+
+2. Environment Setup
+- Install required libraries
+- Set up project folder
+
+3. Script Development
+- Authenticate with Reddit API
+- Write scraping code
+- Implement filtering
+- Store data
+- Handle errors
+
+4. Testing
+- Run on sample
+- Check data quality
+- Debug/refine
+
+5. Data Cleaning & Storage
+- Remove duplicates
+- Standardize text
+- Save cleaned data
+
+6. Documentation
+- Document usage
+- Note limitations
+
+7. Automation (Optional)
+- Schedule script
+- Set up notifications

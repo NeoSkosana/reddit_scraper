@@ -1,0 +1,9 @@
+__pycache__/
+.env
+*.pyc
+.DS_Store
+*.xlsx
+*.csv
+.qodo
+reddit_scrape_cleaned_20250429_163943.csv
+checlists

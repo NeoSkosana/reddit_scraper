@@ -7,6 +7,7 @@ from data_cleaning import clean_reddit_data
 import eda
 import pain_point_extraction
 import pain_point_prioritization
+import generate_report
 
 # Load environment variables
 load_dotenv()
@@ -38,10 +39,19 @@ print(f"\n✓ Cleaned data saved to {output_csv}\n")
 pain_df = pain_point_extraction.extract_pain_points(df_clean)
 summary = pain_point_extraction.group_by_keyword_and_subreddit(pain_df)
 
+# Create data directory if it doesn't exist
+os.makedirs('data', exist_ok=True)
+
 # Save results
-pain_df.to_csv(f'pain_point_posts_{timestamp}.csv', index=False)
-summary.to_csv(f'pain_point_summary_{timestamp}.csv', index=False)
-print(f"\n✓ Pain point posts and summary saved for review.\n")
+pain_point_posts = f'data/pain_point_posts_{timestamp}.csv'
+pain_point_summary = f'data/pain_point_summary_{timestamp}.csv'
+pain_df.to_csv(pain_point_posts, index=False)
+summary.to_csv(pain_point_summary, index=False)
+
+print(f"\n✓ Pain point posts and summary saved in data directory.\n")
+summary.to_csv(pain_point_summary, index=False)
+
+print(f"\n✓ Pain point posts and summary saved in data directory.\n")
 
 # 5. Prioritize Pain Points
 priority_summary = pain_point_prioritization.prioritize_pain_points(pain_df)
@@ -52,5 +62,12 @@ print(priority_summary.head(10))  # Show top 10 pain points
 # (Optional) Export top posts for the top 3 pain points
 for kw in priority_summary['matched_keywords'].head(3):
     top_posts = pain_point_prioritization.top_posts_for_keyword(pain_df, kw)
-    top_posts.to_csv(f'top_posts_{kw}_{timestamp}.csv', index=False)
-    print(f"Top posts for '{kw}' exported.")
+# 6. Generate Report
+generate_report.generate_word_report(
+    priority_csv=pain_point_summary,
+    pain_posts_csv=pain_point_posts,
+    output_docx='data/Pain_Point_Analysis_Report.docx'
+)
+
+# 6. Generate  Report
+generate_report.generate_word_report(pain_point_summary, pain_point_posts, '../Pain_Point_Analysis_Report.docx')
